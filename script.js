@@ -11,12 +11,37 @@ function getComputerChoice() {
     }
 }
 
-
 function getPlayerChoice() {
     let playerChoice = prompt("Please enter your choice");
     playerChoice=playerChoice.toLowerCase();
     playerChoice=playerChoice.charAt(0).toUpperCase()+playerChoice.slice(1);
     return (playerChoice);
 }
-getComputerChoice();
-getPlayerChoice();
+
+function playRound(computerChoice,playerChoice){
+    if (computerChoice===playerChoice){
+        return("Draw");
+    }
+    else if(computerChoice==="Rock" && playerChoice==="Scissors"){
+        return("You lose!"+computerChoice+" beats "+playerChoice);
+    }
+    else if(computerChoice==="Rock" && playerChoice==="Scissors"){
+        return("You win!"+playerChoice+" beats "+computerChoice);
+    }
+    else if(computerChoice==="Paper" && playerChoice==="Rock"){
+        return("You lose!"+computerChoice+" beats "+playerChoice);
+    }
+    else if(computerChoice==="Paper" && playerChoice==="Scissors"){
+        return("You win!"+playerChoice+" beats "+computerChoice);
+    }
+    else if(computerChoice==="Scissors" && playerChoice==="Paper"){
+        return("You lose!"+computerChoice+" beats "+playerChoice);
+    }
+    else if(computerChoice==="Scissors" && playerChoice==="Rock"){
+        return("You win!"+playerChoice+" beats "+computerChoice);
+    }
+}
+
+let computerChoice=getComputerChoice();
+let playerChoice=getPlayerChoice();
+console.log(playRound(computerChoice,playerChoice));
