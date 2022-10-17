@@ -25,7 +25,7 @@ function playRound(computerChoice,playerChoice){
     else if(computerChoice==="Rock" && playerChoice==="Scissors"){
         return("You lose!"+computerChoice+" beats "+playerChoice);
     }
-    else if(computerChoice==="Rock" && playerChoice==="Scissors"){
+    else if(computerChoice==="Rock" && playerChoice==="Paper"){
         return("You win!"+playerChoice+" beats "+computerChoice);
     }
     else if(computerChoice==="Paper" && playerChoice==="Rock"){
@@ -41,7 +41,8 @@ function playRound(computerChoice,playerChoice){
         return("You win!"+playerChoice+" beats "+computerChoice);
     }
 }
-
+for (let i=0;i<5;i++){
 let computerChoice=getComputerChoice();
 let playerChoice=getPlayerChoice();
 console.log(playRound(computerChoice,playerChoice));
+}
