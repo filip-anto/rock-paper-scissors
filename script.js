@@ -1,3 +1,7 @@
+let playerScore = 0;
+let computerScore = 0;
+let totalRounds = 0;
+
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3);
     if (computerChoice === 0) {
@@ -61,7 +65,7 @@ weapons.forEach(element => console.log(element));*/
 let playArea = document.getElementsByClassName("playArea")[0];
 playArea.textContent = "Make Your Choice";
 
-function setPlayerArea(playerChoice){
+function setPlayerArea(playerChoice) {
     let playerCard = document.createElement("div");
     playerCard.classList.add("playerWeapon");
     let playerImage = document.createElement("img");
@@ -74,7 +78,7 @@ function setPlayerArea(playerChoice){
     x.appendChild(playerCard);
 }
 
-function setComputerArea(computerChoice){
+function setComputerArea(computerChoice) {
     let computerCard = document.createElement("div");
     computerCard.classList.add("computerWeapon");
     let computerImage = document.createElement("img");
@@ -87,38 +91,88 @@ function setComputerArea(computerChoice){
     x.appendChild(computerCard);
 }
 
-function checkWinner(winner){
-    if (winner.includes("draw")){
-        let playerArea=document.getElementsByClassName("playerWeapon")[0];
-        playerArea.style.backgroundColor="grey";
-        let computerArea=document.getElementsByClassName("computerWeapon")[0];
-        computerArea.style.backgroundColor="grey";
-    }
-    if (winner.includes("win")){
-        let playerArea=document.getElementsByClassName("playerWeapon")[0];
-        playerArea.style.backgroundColor="green";
-        let computerArea=document.getElementsByClassName("computerWeapon")[0];
-        computerArea.style.backgroundColor="red";
-    }else{
-        let playerArea=document.getElementsByClassName("playerWeapon")[0];
-        playerArea.style.backgroundColor="red";
-        let computerArea=document.getElementsByClassName("computerWeapon")[0];
-        computerArea.style.backgroundColor="green";
+function checkWinner(winner) {
+    console.log(winner);
+    console.log(winner.includes("draw") == true)
+    if (winner.includes("draw")) {
+        let playerArea = document.getElementsByClassName("playerWeapon")[0];
+        playerArea.style.backgroundColor = "grey";
+        let computerArea = document.getElementsByClassName("computerWeapon")[0];
+        computerArea.style.backgroundColor = "grey";
+        totalRounds++;
+    } else if (winner.includes("win")) {
+        let playerArea = document.getElementsByClassName("playerWeapon")[0];
+        playerArea.style.backgroundColor = "green";
+        let computerArea = document.getElementsByClassName("computerWeapon")[0];
+        computerArea.style.backgroundColor = "red";
+        playerScore++;
+        totalRounds++;
+    } else {
+        let playerArea = document.getElementsByClassName("playerWeapon")[0];
+        playerArea.style.backgroundColor = "red";
+        let computerArea = document.getElementsByClassName("computerWeapon")[0];
+        computerArea.style.backgroundColor = "green";
+        computerScore++;
+        totalRounds++;
     }
 }
 
-function setBattleArea(playerChoice, computerChoice,winner) {
+
+
+
+function setBattleArea(playerChoice, computerChoice, winner) {
     setPlayerArea(playerChoice);
     setComputerArea(computerChoice);
     checkWinner(winner);
 }
 
+function setScore() {
+    var scoring = document.getElementsByClassName("scoring")[0];
+    scoring.textContent = "Number of Rounds: " + totalRounds + "     Player: " + playerScore + " Computer: " + computerScore;
+}
+
+function quitGame() {
+    alert("Hi");
+window.location.href="http://www.google.com";
+}
+function restart() {
+    document.getElementsByClassName("wrapper")[0].textContent="";
+    document.getElementsByClassName("playArea")[0].textContent="";
+    document.getElementsByClassName("battleArea")[0].textContent="Let's go again!";
+    playerScore = 0;
+    computerScore = 0;
+    totalRounds = 0;
+    weapons.forEach(weapon => weapon.addEventListener("click", startRound));
+}
+
+function endGame() {
+    weapons.forEach(weapon => weapon.removeEventListener("click", startRound));
+    document.getElementsByClassName("battleArea")[0].innerHTML = "";
+    document.getElementsByClassName("scoring")[0].innerHTML = "";
+    document.getElementsByClassName("battleArea")[0].textContent = "Game Ended with Player: " + playerScore + " Computer: " + computerScore + "\n";
+    let replay = document.createElement("button");
+    replay.textContent = "Replay";
+    replay.classList.add("button-3");
+    replay.addEventListener("click", restart);
+    document.getElementsByClassName("wrapper")[0].appendChild(replay);
+    let quit = document.createElement("button");
+    quit.textContent = "Quit";
+    quit.classList.add("button-3");
+    quit.addEventListener("click", quitGame);
+    document.getElementsByClassName("wrapper")[0].appendChild(quit);
+    
+}
+
 function startRound(e) {
     let playerChoice = e.target.textContent.trim();
     let computerChoice = getComputerChoice();
-    let x = document.getElementsByClassName("battleArea")[0].innerHTML="";
+    let x = document.getElementsByClassName("battleArea")[0].innerHTML = "";
     playArea.textContent = (playRound(computerChoice, playerChoice));
-    setBattleArea(playerChoice, computerChoice,playArea.textContent);
+    setBattleArea(playerChoice, computerChoice, playArea.textContent);
+    setScore();
+    if (totalRounds >= 5) {
+        endGame();
+    }
 }
-var weapons = document.querySelectorAll('button.weapon');
+let weapons = document.querySelectorAll('button.weapon');
 weapons.forEach(weapon => weapon.addEventListener("click", startRound));
