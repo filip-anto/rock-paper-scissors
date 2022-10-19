@@ -55,9 +55,31 @@ img{
 }
 
 .playArea{
-    padding-top:100px;
+    padding-top:30px;
     font-size:60px;
     font-weight:900;
     display:flex;
     justify-content: center;
+}
+.battleArea{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.playerWeapon,.computerWeapon{
+display:flex;
+flex-direction: column;
+text-align:center;
+margin:10px 20px;
+padding:10px;
+font-size:20px;
+font-family: 'Times New Roman', Times, serif;
+border-style:groove;
+    border-radius:10px;
+    font-weight: 900px;
+}
+
+.computerWeapon{
+
 }

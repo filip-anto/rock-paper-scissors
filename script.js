@@ -58,16 +58,67 @@ function playRound(computerChoice, playerChoice) {
 /*var weapons=document.querySelectorAll('div.weapon');
 console.log(weapons);
 weapons.forEach(element => console.log(element));*/
-let playArea=document.getElementsByClassName("playArea")[0];
-playArea.textContent="Make Your Choice";
+let playArea = document.getElementsByClassName("playArea")[0];
+playArea.textContent = "Make Your Choice";
 
-
-
-function startRound(e){
-    let playerChoice=e.target.textContent.trim();
-    let computerChoice = getComputerChoice();
-    playArea.textContent=(playRound(computerChoice, playerChoice));
+function setPlayerArea(playerChoice){
+    let playerCard = document.createElement("div");
+    playerCard.classList.add("playerWeapon");
+    let playerImage = document.createElement("img");
+    playerImage.src = playerChoice.toLowerCase() + ".jpeg";
+    playerCard.appendChild(playerImage);
+    let playerQuote = document.createElement("div");
+    playerQuote.textContent = "Player chose " + playerChoice.toLowerCase();
+    playerCard.appendChild(playerQuote);
+    let x = document.getElementsByClassName("battleArea")[0];
+    x.appendChild(playerCard);
 }
-var weapons=document.querySelectorAll('button.weapon');
- weapons.forEach(weapon=>weapon.addEventListener("click",startRound));
-console.log(weapons[0].innerHTML);
+
+function setComputerArea(computerChoice){
+    let computerCard = document.createElement("div");
+    computerCard.classList.add("computerWeapon");
+    let computerImage = document.createElement("img");
+    computerImage.src = computerChoice.toLowerCase() + ".jpeg";
+    computerCard.appendChild(computerImage);
+    let computerQuote = document.createElement("div");
+    computerQuote.textContent = "Computer chose " + computerChoice.toLowerCase();
+    computerCard.appendChild(computerQuote);
+    let x = document.getElementsByClassName("battleArea")[0];
+    x.appendChild(computerCard);
+}
+
+function checkWinner(winner){
+    if (winner.includes("draw")){
+        let playerArea=document.getElementsByClassName("playerWeapon")[0];
+        playerArea.style.backgroundColor="grey";
+        let computerArea=document.getElementsByClassName("computerWeapon")[0];
+        computerArea.style.backgroundColor="grey";
+    }
+    if (winner.includes("win")){
+        let playerArea=document.getElementsByClassName("playerWeapon")[0];
+        playerArea.style.backgroundColor="green";
+        let computerArea=document.getElementsByClassName("computerWeapon")[0];
+        computerArea.style.backgroundColor="red";
+    }else{
+        let playerArea=document.getElementsByClassName("playerWeapon")[0];
+        playerArea.style.backgroundColor="red";
+        let computerArea=document.getElementsByClassName("computerWeapon")[0];
+        computerArea.style.backgroundColor="green";
+    }
+}
+
+function setBattleArea(playerChoice, computerChoice,winner) {
+    setPlayerArea(playerChoice);
+    setComputerArea(computerChoice);
+    checkWinner(winner);
+}
+
+function startRound(e) {
+    let playerChoice = e.target.textContent.trim();
+    let computerChoice = getComputerChoice();
+    let x = document.getElementsByClassName("battleArea")[0].innerHTML="";
+    playArea.textContent = (playRound(computerChoice, playerChoice));
+    setBattleArea(playerChoice, computerChoice,playArea.textContent);
+}
+var weapons = document.querySelectorAll('button.weapon');
+weapons.forEach(weapon => weapon.addEventListener("click", startRound));
