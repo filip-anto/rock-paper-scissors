@@ -10,7 +10,7 @@ function getComputerChoice() {
         return ("Scissors");
     }
 }
-
+/*
 function capitalize(playerChoice) {
     console.log (playerChoice);
     playerChoice = playerChoice.toLowerCase();
@@ -26,32 +26,48 @@ function getPlayerChoice() {
     }
     return (playerChoice);
 }
-
+*/
 function playRound(computerChoice, playerChoice) {
     if (computerChoice === playerChoice) {
-        return ("It's a draw");
+        return ("It's a draw!");
     }
     else if (computerChoice === "Rock" && playerChoice === "Scissors") {
-        return ("You lose!" + computerChoice + " beats " + playerChoice);
+        return ("You lose! " + computerChoice + " beats " + playerChoice);
     }
     else if (computerChoice === "Rock" && playerChoice === "Paper") {
-        return ("You win!" + playerChoice + " beats " + computerChoice);
+        return ("You win! " + playerChoice + " beats " + computerChoice);
     }
     else if (computerChoice === "Paper" && playerChoice === "Rock") {
-        return ("You lose!" + computerChoice + " beats " + playerChoice);
+        return ("You lose! " + computerChoice + " beats " + playerChoice);
     }
     else if (computerChoice === "Paper" && playerChoice === "Scissors") {
-        return ("You win!" + playerChoice + " beats " + computerChoice);
+        return ("You win! " + playerChoice + " beats " + computerChoice);
     }
     else if (computerChoice === "Scissors" && playerChoice === "Paper") {
-        return ("You lose!" + computerChoice + " beats " + playerChoice);
+        return ("You lose! " + computerChoice + " beats " + playerChoice);
     }
     else if (computerChoice === "Scissors" && playerChoice === "Rock") {
-        return ("You win!" + playerChoice + " beats " + computerChoice);
+        return ("You win! " + playerChoice + " beats " + computerChoice);
     }
 }
-for (let i = 0; i < 5; i++) {
+/*for (let i = 0; i < 5; i++) {
     let computerChoice = getComputerChoice();
     let playerChoice = getPlayerChoice();
     console.log(playRound(computerChoice, playerChoice));
+}*/
+/*var weapons=document.querySelectorAll('div.weapon');
+console.log(weapons);
+weapons.forEach(element => console.log(element));*/
+let playArea=document.getElementsByClassName("playArea")[0];
+playArea.textContent="Make Your Choice";
+
+
+
+function startRound(e){
+    let playerChoice=e.target.textContent.trim();
+    let computerChoice = getComputerChoice();
+    playArea.textContent=(playRound(computerChoice, playerChoice));
 }
+var weapons=document.querySelectorAll('button.weapon');
+ weapons.forEach(weapon=>weapon.addEventListener("click",startRound));
+console.log(weapons[0].innerHTML);
